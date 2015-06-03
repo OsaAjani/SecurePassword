@@ -4,8 +4,8 @@
 
 	<div class="icons-top">
 		<span class="control ion-ios-copy-outline" id="copy-password" ></span>
-		<span class="control ion-ios-gear-outline" target="<?php secho($this->generateUrl('passwords', 'edit')); ?>" target-id="passwords-edit"></span>
-		<span class="control ion-ios-close-outline" target="<?php secho($this->generateUrl('passwords', 'delete')); ?>" target-id="passwords-delete"></span>
+		<span class="control ion-ios-gear-outline" target="<?php secho($this->generateUrl('passwords', 'edit', [$password['id']])); ?>" target-id="passwords-edit"></span>
+		<span class="control ion-ios-close-outline" target="<?php secho($this->generateUrl('passwords', 'delete', [$password['id']])); ?>" target-id="passwords-delete"></span>
 	</div>
 	
 	<h2 id="decrypted-password" class="text-center"><?php secho($password['decrypted']); ?></h2>

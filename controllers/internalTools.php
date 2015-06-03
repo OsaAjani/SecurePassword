@@ -53,38 +53,46 @@
 		 * @param boolean $upper : Des lettres majuscule
 		 * @param boolean $int : Des chiffres
 		 * @param boolean $specials : Des caractères spéciaux
+		 * @param int $need : Nombre minimum de restrictions à respecter (parmi sub, upper, int, specials). Par défaut tous
+		 * @return boolean
 		 */
-		public static function checkPasswordStrength ($password, $length, $sub = true, $upper = true, $int = true, $specials = true)
+		public static function checkPasswordStrength ($password, $length, $sub = true, $upper = true, $int = true, $specials = true, $need = 4)
 		{
 			$passwordIsValid = true;
 			$password = self::removeAccents($password);
 
-			if (mb_length($password) < $length)
+			//On gère le cas ou on aurait défini moins de possibilitées que le nombre de possibilitées requises
+			$totalPossibleNeed = $sub + $upper + $int + $specials;
+			$need = ($need > $totalPossibleNeed) ? $totalPossibleNeed : $need;
+
+			$totalNeed = 0;
+
+			if (mb_strlen($password) < $length)
 			{
-				$passwordIsValid = false;
+				return false;
 			}
 
-			if ($sub && !preg_match('#([a-z]+)#u', $password))
+			if ($sub && preg_match('#([a-z]+)#u', $password))
 			{
-				$passwordIsValid = false;
+				$totalNeed++;
 			}
 
-			if ($upper && !preg_match('#([A-Z]+)#u', $password))
+			if ($upper && preg_match('#([A-Z]+)#u', $password))
 			{
-				$passwordIsValid = false;
+				$totalNeed++;
 			}
 
-			if ($int && !preg_match('#([0-9]+)#u', $password))
+			if ($int && preg_match('#([0-9]+)#u', $password))
 			{
-				$passwordIsValid = false;
+				$totalNeed++;
 			}
 
-			if ($specials && !preg_match('#([^a-zA-Z0-9]+)#u', $password))
+			if ($specials && preg_match('#([^a-zA-Z0-9]+)#u', $password))
 			{
-				$passwordIsValid = false;
+				$totalNeed++;
 			}
 
-			return $passwordIsValid;
+			return ($totalNeed >= $need);
 		}
 
 		/**

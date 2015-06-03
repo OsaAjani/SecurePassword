@@ -454,6 +454,30 @@ a, a:focus, a:hover, a:active
 	margin-top: 10vh;
 }
 
+/**********************/
+/* PASSWORDS ADD PAGE */
+/**********************/
+#passwords-add
+{
+	background-color: #00aba9;
+}
+
+/*************************/
+/* PASSWORDS DELETE PAGE */
+/*************************/
+#passwords-delete
+{
+	background-color: #26C281;
+}
+
+/***********************/
+/* PASSWORDS EDIT PAGE */
+/***********************/
+#passwords-edit
+{
+	background-color: #c0392b;
+}
+
 /**********/
 /* SPINER */
 /**********/

@@ -3,7 +3,7 @@
 	<h1><?php secho($group['name']); ?></h1>
 
 	<div class="icons-top">
-		<span class="control ion-ios-plus-outline" target="<?php secho($this->generateUrl('passwords', 'add')); ?>" target-id="passwords-add"></span>
+		<span class="control ion-ios-plus-outline" target="<?php secho($this->generateUrl('passwords', 'add', [$group['id']])); ?>" target-id="passwords-add"></span>
 		<span class="control ion-ios-gear-outline" target="<?php secho($this->generateUrl('groups', 'edit', [$group['id']])); ?>" target-id="groups-edit"></span>
 		<span class="control ion-ios-close-outline" target="<?php secho($this->generateUrl('groups', 'delete', [$group['id']])); ?>" target-id="groups-delete"></span>
 	</div>
