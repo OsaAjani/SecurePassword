@@ -35,7 +35,7 @@ class groups extends Controller
 	{
 		global $db;
 
-		if (!count($groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $groupId])))
+		if (!$groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $groupId]))
 		{
 			$router = new Router();
 			$router->return404();
@@ -108,7 +108,7 @@ class groups extends Controller
 	{
 		global $db;
 
-		if (!count($groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $groupId])))
+		if (!$groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $groupId]))
 		{
 			$router = new Router();
 			$router->return404();
@@ -161,7 +161,7 @@ class groups extends Controller
 	{
 		global $db;
 
-		if (!count($groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $groupId])))
+		if (!$groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $groupId]))
 		{
 			$router = new Router();
 			$router->return404();

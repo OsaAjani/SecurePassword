@@ -5,6 +5,16 @@
 class connexion extends Controller
 {
 	/**
+	 * Permet de déconnecter un utilisateur
+	 */
+	public static function logout()
+	{
+		session_unset();
+		session_destroy();
+		header('Location: ' . HTTP_PWD);
+	}
+
+	/**
 	 * Permet de vérifier si une adresse mail existe
 	 * @param string email : L'adresse mail à vérifier
 	 */

@@ -21,7 +21,7 @@ class passwords extends Controller
 	{
 		global $db;
 
-		if (!count($passwords = $db->getFromTableWhere('passwords', ['id' => $passwordId])))
+		if (!$passwords = $db->getFromTableWhere('passwords', ['id' => $passwordId]))
 		{
 			$router = new Router();
 			$router->return404();
@@ -30,7 +30,7 @@ class passwords extends Controller
 		$password = $passwords[0];
 
 		//Si on ne trouve pas de groupe qui corresponde à cet utilisateur et le groupe du password -----> Le password n'appartient pas à l'utilisateur en cours
-		if (!count($groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $password['group_id']])))
+		if (!$groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $password['group_id']]))
 		{
 			$router = new Router();
 			$router->return404();
@@ -51,7 +51,7 @@ class passwords extends Controller
 	{
 		global $db;
 
-		if (!count($groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $groupId])))
+		if (!$groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $groupId]))
 		{
 			$router = new Router();
 			$router->return404();
@@ -86,7 +86,7 @@ class passwords extends Controller
 			return false;
 		}
 
-		if (!count($groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $groupId])))
+		if (!$groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $groupId]))
 		{
 			$result['success'] = 0;
 			$result['error'] = 'Le groupe dans lequel vous souhaitez ajouter un password n\'existe pas !';
@@ -110,7 +110,7 @@ class passwords extends Controller
 			return false;
 		}
 
-		if (!count($groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $groupId])))
+		if (!$groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $groupId]))
 		{
 			$result['success'] = 0;
 			$result['error'] = 'Le groupe dans lequel vous souhaitez ajouter un password n\'existe pas !';
@@ -138,7 +138,7 @@ class passwords extends Controller
 	{
 		global $db;
 
-		if (!count($passwords = $db->getFromTableWhere('passwords', ['id' => $passwordId])))
+		if (!$passwords = $db->getFromTableWhere('passwords', ['id' => $passwordId]))
 		{
 			$router = new Router();
 			$router->return404();
@@ -148,7 +148,7 @@ class passwords extends Controller
 		$password['decrypted'] = self::_decryptPassword($password['content']);
 
 		//Si on ne trouve pas de groupe qui corresponde à cet utilisateur et le groupe du password -----> Le password n'appartient pas à l'utilisateur en cours
-		if (!count($groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $password['group_id']])))
+		if (!$groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $password['group_id']]))
 		{
 			$router = new Router();
 			$router->return404();
@@ -183,7 +183,7 @@ class passwords extends Controller
 			return false;
 		}
 
-		if (!count($passwords = $db->getFromTableWhere('passwords', ['id' => $passwordId])))
+		if (!$passwords = $db->getFromTableWhere('passwords', ['id' => $passwordId]))
 		{
 			$result['success'] = 0;
 			$result['error'] = 'Le password que vous voulez modifier n\'existe pas !';
@@ -194,7 +194,7 @@ class passwords extends Controller
 		$password = $passwords[0];
 
 		//Si on ne trouve pas de groupe qui corresponde à cet utilisateur et le groupe du password -----> Le password n'appartient pas à l'utilisateur en cours
-		if (!count($groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $password['group_id']])))
+		if (!$groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $password['group_id']]))
 		{
 			$result['success'] = 0;
 			$result['error'] = 'Le password que vous voulez modifier ne vous appartient pas !';
@@ -238,7 +238,7 @@ class passwords extends Controller
 	{
 		global $db;
 
-		if (!count($passwords = $db->getFromTableWhere('passwords', ['id' => $passwordId])))
+		if (!$passwords = $db->getFromTableWhere('passwords', ['id' => $passwordId]))
 		{
 			$router = new Router();
 			$router->return404();
@@ -247,7 +247,7 @@ class passwords extends Controller
 		$password = $passwords[0];
 
 		//Si on ne trouve pas de groupe qui corresponde à cet utilisateur et le groupe du password -----> Le password n'appartient pas à l'utilisateur en cours
-		if (!count($groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $password['group_id']])))
+		if (!$groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $password['group_id']]))
 		{
 			$router = new Router();
 			$router->return404();
@@ -280,7 +280,7 @@ class passwords extends Controller
 			return false;
 		}
 
-		if (!count($passwords = $db->getFromTableWhere('passwords', ['id' => $passwordId])))
+		if (!$passwords = $db->getFromTableWhere('passwords', ['id' => $passwordId]))
 		{
 			$result['success'] = 0;
 			$result['error'] = 'Le password que vous voulez supprimer n\'existe pas !';
@@ -291,7 +291,7 @@ class passwords extends Controller
 		$password = $passwords[0];
 
 		//Si on ne trouve pas de groupe qui corresponde à cet utilisateur et le groupe du password -----> Le password n'appartient pas à l'utilisateur en cours
-		if (!count($groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $password['group_id']])))
+		if (!$groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $password['group_id']]))
 		{
 			$result['success'] = 0;
 			$result['error'] = 'Le password que vous voulez supprimer ne vous appartient pas !';
@@ -314,22 +314,30 @@ class passwords extends Controller
 	/**
 	 * Cette fonction permet de chiffrer un mot de passe à sauvegarder
 	 * @param string $password : Le mot de passe à chiffrer
+	 * @param string $userPassword : Le mot de passe de l'utilisateur à utiliser pour chiffrer (par défaut $_SESSION['password'])
+	 * @param string $userKey : La clef de chiffrement à utiliser (par défaut $_SESSION['secret_key'])
 	 * @return string : Le mot de passe chiffré en base64
 	 */
-	public static function _cryptPassword($password)
+	public static function _cryptPassword($password, $userPassword = false, $userKey = false)
 	{
-		$key = internalTools::aesCrypt($_SESSION['secret_key'], $_SESSION['password']);
+		$userPassword = !$userPassword ? $_SESSION['password'] : $userPassword;
+		$userKey = !$userKey ? $_SESSION['secret_key'] : $userKey;
+		$key = internalTools::aesCrypt($userKey, $userPassword);
 		return internalTools::aesCrypt($password, $key);
 	}
 
 	/**
 	 * Cette fonction permet de dechiffrer un mot de passe à sauvegarder
 	 * @param string $password : Le mot de passe à dechiffrer
+	 * @param string $userPassword : Le mot de passe de l'utilisateur à utiliser pour chiffrer (par défaut $_SESSION['password'])
+	 * @param string $userKey : La clef de chiffrement à utiliser (par défaut $_SESSION['secret_key'])
 	 * @return string : Le mot de passe chiffré en base64
 	 */
-	public static function _decryptPassword($password)
+	public static function _decryptPassword($password, $userPassword = false, $userKey = false)
 	{
-		$key = internalTools::aesCrypt($_SESSION['secret_key'], $_SESSION['password']);
+		$userPassword = !$userPassword ? $_SESSION['password'] : $userPassword;
+		$userKey = !$userKey ? $_SESSION['secret_key'] : $userKey;
+		$key = internalTools::aesCrypt($userKey, $userPassword);
 		return internalTools::aesDecrypt($password, $key);
 	}
 }

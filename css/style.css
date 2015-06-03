@@ -268,7 +268,8 @@ a, a:focus, a:hover, a:active
 	to {color: #f2ca27;}
 }
 
-.control:hover
+.control:hover,
+.hover-color:hover
 {
 	color: #f2ca27;
 	cursor: pointer;
@@ -281,6 +282,7 @@ a, a:focus, a:hover, a:active
 	top: 5vh;
 	left: 5vw;
 	font-size: 40px;
+	color: #fff;
 }
 
 .icons-top
@@ -438,6 +440,28 @@ a, a:focus, a:hover, a:active
 	position: absolute;
 	top: -30px;
 	left: -8px;
+}
+
+#user-email
+{
+	font-size: 50px;
+	margin-top: 10vh;
+}
+
+/*******************/
+/* USERS EDIT PAGE */
+/*******************/
+#users-edit
+{
+	background-color: #00BCD4;
+}
+
+/*********************/
+/* USERS DELETE PAGE */
+/*********************/
+#users-delete
+{
+	background-color: #DA4453;
 }
 
 /***********************/

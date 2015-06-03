@@ -17,7 +17,7 @@ class inscription extends Controller
 		);
 
 		$users = $db->getFromTableWhere('users', ['email' => $email]);
-		if (count($users))
+		if ($users)
 		{
 			$result['valid'] = 1;
 			$_SESSION['tmp_email'] = $email;
@@ -42,7 +42,7 @@ class inscription extends Controller
 		);
 
 		$users = $db->getFromTableWhere('users', ['email' => $email]);
-		if (!count($users))
+		if ($users)
 		{
 			echo json_encode($result);
 			return false;

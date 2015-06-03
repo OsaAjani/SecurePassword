@@ -1,4 +1,5 @@
 <div id="groups" class="tile">
+	<a class="go-back-arrow ion-ios-close-outline hover-color" href="<?php secho($this->generateUrl('connexion', 'logout')); ?>"></a>
 	<h1>Mes groupes de passwords</h1>
 
 	<div class="icons-top">
