@@ -179,7 +179,7 @@ jQuery(document).ready(function()
 		copyToClipboard(jQuery('#first-container').find('#decrypted-password').text());
 	});
 
-	jQuery('#first-container').on('click', '.control', function(e)
+	jQuery('#first-container').on('click', '.control, .goto', function(e)
 	{
 		e.preventDefault();
 		targetNavigate(jQuery(this));

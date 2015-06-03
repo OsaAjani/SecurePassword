@@ -61,14 +61,24 @@ class groups extends Controller
 
 	/**
 	 * Cette fonction permet d'enregistrer un nouveau password
+	 * @param $csrf : Le jeton CSRF
+	 * @param $_POST['name'] : Le nom du groupe à ajouter
 	 */
-	public function create ()
+	public function create ($csrf)
 	{
 		global $db;
 		$result = array(
 			'success' => 1,
 			'error' => '',
 		);
+
+		if (!internalTools::verifyCSRF($csrf))
+		{
+			$result['success'] = 0;
+			$result['error'] = 'Jeton CSRF invalide !';
+			echo json_encode($result);
+			return false;
+		}
 
 		if (empty($_POST['name']))
 		{
@@ -87,6 +97,119 @@ class groups extends Controller
 		}
 
 		echo json_encode($result);
-		return false;
+		return true;
+	}	
+
+	/**
+	 * Cette fonction retourne la page de validation de suppresion d'un groupe
+	 * @param int $groupId : L'id du groupe à supprimer
+	 */
+	public function delete ($groupId)
+	{
+		global $db;
+
+		if (!count($groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $groupId])))
+		{
+			$router = new Router();
+			$router->return404();
+		}
+		
+		return $this->render('groupsDelete', array(
+			'group' => $groups[0],
+		));
+	}	
+
+	/**
+	 * Cette fonction permet de supprimer un groupe
+	 * @param int $groupId : L'id du groupe à supprimer
+	 * @param string $csrf : Jeton CSRF
+	 */
+	public function destroy ($groupId, $csrf)
+	{
+		global $db;
+		
+		$result = array(
+			'success' => 1,
+			'error' => '',
+		);
+
+		if (!internalTools::verifyCSRF($csrf))
+		{
+			$result['success'] = 0;
+			$result['error'] = 'Jeton CSRF invalide !';
+			echo json_encode($result);
+			return false;
+		}
+	
+		if (!$db->deleteFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $groupId]))
+		{
+			$result['success'] = 0;
+			$result['error'] = 'Impossible de supprimer ce groupe.';
+			echo json_encode($result);
+			return false;
+		}
+
+		echo json_encode($result);
+		return true;
+	}
+
+	/**
+	 * Cette fonction retourne la page d'edition d'un groupe
+	 * @param int $groupId : L'id du groupe à éditer
+	 */
+	public function edit ($groupId)
+	{
+		global $db;
+
+		if (!count($groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $groupId])))
+		{
+			$router = new Router();
+			$router->return404();
+		}
+
+		return $this->render('groupsEdit', array(
+			'group' => $groups[0]
+		));
+	}
+
+	/**
+	 * Cette fonction permet de modifier un groupe
+	 * @param $csrf : Le jeton CSRF
+	 * @param $_POST['name'] : Le nom du groupe à ajouter
+	 */
+	public function update ($groupId, $csrf)
+	{
+		global $db;
+		$result = array(
+			'success' => 1,
+			'error' => '',
+		);
+
+		if (!internalTools::verifyCSRF($csrf))
+		{
+			$result['success'] = 0;
+			$result['error'] = 'Jeton CSRF invalide !';
+			echo json_encode($result);
+			return false;
+		}
+
+		if (empty($_POST['name']))
+		{
+			$result['success'] = 0;
+			$result['error'] = 'Remplissez tous les champs.';
+			echo json_encode($result);
+			return false;
+		}
+
+		if (!$db->updateTableWhere('groups', ['name' => $_POST['name']], ['id' => $groupId, 'user_id' => $_SESSION['user_id']]))
+		{
+			$result['success'] = 0;
+			$result['error'] = 'Une erreur inconnue est survenue.';
+			echo json_encode($result);
+			return false;
+		}
+
+		echo json_encode($result);
+		return true;
 	}	
 }
