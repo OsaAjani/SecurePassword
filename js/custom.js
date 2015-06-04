@@ -115,64 +115,16 @@ jQuery(document).ready(function()
 {
 	if (is_connected)
 	{
-		showGroups();
-	}
-
-	jQuery('#first-container').on('submit', '#landing_form_email', function(e)
-	{
-		e.preventDefault();
 		jQuery('#spinner').show();
-		jQuery.ajax({async:false});
-		jQuery.get(HTTP_PWD + 'connexion/checkemail/' + encodeURIComponent(jQuery(this).find('#email').val()), function (data)
+		jQuery.get(HTTP_PWD + 'groups', function (data)
 		{
-			if (data.valid == 1)
-			{
-				jQuery('.email-error').hide();
-				showIndexPasswords();
-			}
-			else
-			{
-				jQuery('.email-error').show();
-			}
-
-		}, 'json');
-		jQuery.ajax({async:true});
-		jQuery('#spinner').hide();
-	});
-
-	jQuery('#first-container').on('submit', '#landing_form_password', function(e)
-	{
-		e.preventDefault();
-		jQuery('#spinner').show();
-		jQuery.post(HTTP_PWD + 'connexion/checkpassword/', {password : encodeURIComponent(jQuery(this).find('#password').val())}, function (data)
-		{
-			if (data.valid == 1)
-			{
-				jQuery('.password-error').hide();
-				showGroups();
-			}
-			else
-			{
-				jQuery('.password-error').show();
-			}
-
-		}, 'json').done(function ()
+			jQuery('#first-container').prepend(data);
+			changeTile(jQuery('#groups'), 'slideInRight');	
+		}).done(function ()
 		{
 			jQuery('#spinner').hide();
 		});
-	});
-
-	jQuery('#password-page-back').click(function(e)
-	{
-		e.preventDefault();
-		changeTile(jQuery('.email-page'), 'slideInLeft', 'slideOutRight');
-	});
-
-	jQuery('#first-container').on('click', '.group-name', function(e)
-	{
-		e.preventDefault();
-		showPasswordsOfGroup(jQuery(this));
-	});
+	}
 
 	jQuery('#first-container').on('click', '#copy-password', function(e)
 	{
