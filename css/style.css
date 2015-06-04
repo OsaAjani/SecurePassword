@@ -223,14 +223,13 @@ a, a:focus, a:hover, a:active
 
 .tile.landing-page .input-group
 {
-	margin-top: 100px;
+	margin-top: 20px;
 }
 
 .tile.landing-page .no-account 
 {
 	display: block;
 	margin-top: 15px;
-	color: #fff;
 	font-style: italic;
 	text-align: center;
 }
@@ -500,6 +499,14 @@ a, a:focus, a:hover, a:active
 #passwords-edit
 {
 	background-color: #c0392b;
+}
+
+/********************/
+/* INSCRIPTION PAGE */
+/********************/
+#inscription
+{
+	background-color: #E67E22;
 }
 
 /**********/

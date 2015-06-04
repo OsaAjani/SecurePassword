@@ -23,7 +23,6 @@
 		<script type="text/javascript" src="<?php echo HTTP_PWD_JS; ?>jquery-2.1.1.min.js"></script>
 		<script type="text/javascript" src="<?php echo HTTP_PWD_JS; ?>bootstrap.min.js"></script>
 		<script type="text/javascript" src="<?php echo HTTP_PWD_JS; ?>custom.js"></script>
-		<script type="text/javascript" src="<?php echo HTTP_PWD_JS; ?>navigation.js"></script>
 		
 	</head>
 	<body>

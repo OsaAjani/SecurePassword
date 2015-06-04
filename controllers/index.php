@@ -20,7 +20,11 @@ class index extends Controller
 	 */
 	public function email ()
 	{
-		return $this->render('indexEmail');
+		$emailsend = !empty($_GET['emailsend']) ? $_GET['emailsend'] : false;
+
+		return $this->render('indexEmail', array(
+			'emailsend' => $emailsend
+		));
 	}
 
 	/**

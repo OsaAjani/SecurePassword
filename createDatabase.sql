@@ -13,6 +13,9 @@ CREATE TABLE IF NOT EXISTS users
 	UNIQUE (email)
 );
 
+-- Ajout du champs valid
+ALTER TABLE users ADD valid BOOLEAN NOT NULL DEFAULT 0;
+
 -- Create table of groups
 CREATE TABLE IF NOT EXISTS groups
 (

@@ -18,22 +18,35 @@ class connexion extends Controller
 	 * Permet de vérifier si une adresse mail existe
 	 * @param string email : L'adresse mail à vérifier
 	 */
-	public function checkemail($email)
+	public function checkemail()
 	{
 		global $db;
 
 		$result = array(
-			'valid' => 0
+			'success' => 1,
+			'error' => '',
 		);
 
-		$users = $db->getFromTableWhere('users', ['email' => $email]);
-		if (count($users))
+		$users = $db->getFromTableWhere('users', ['email' => $_POST['email']]);
+		if (!count($users))
 		{
-			$result['valid'] = 1;
-			$_SESSION['tmp_email'] = $email;
+			$result['success'] = 0;
+			$result['error'] = 'Cette adresse e-mail n\'existe pas !';
+			echo json_encode($result);
+			return false;
 		}
 
+		if (!$users[0]['valid'])
+		{
+			$result['success'] = 0;
+			$result['error'] = 'Cette adresse e-mail n\'est pas encore validée (<a href="' . $this->generateUrl('inscription', 'resend', [$users[0]['id']]) . '">Renvoyer un mail de validation</a>) !';
+			echo json_encode($result);
+			return false;
+		}
+
+		$_SESSION['tmp_email'] = $_POST['email'];
 		echo json_encode($result);
+		return true;
 	}
 
 	/**
@@ -48,12 +61,15 @@ class connexion extends Controller
 		global $db;
 
 		$result = array(
-			'valid' => 0
+			'success' => 1,
+			'error' => '',
 		);
 
 		$users = $db->getFromTableWhere('users', ['email' => $email]);
 		if (!count($users))
 		{
+			$result['success'] = 0;
+			$result['error'] = 'Cette adresse e-mail n\'existe pas !';
 			echo json_encode($result);
 			return false;
 		}
@@ -61,11 +77,12 @@ class connexion extends Controller
 		$user = $users[0];
 		if (!password_verify($password, $user['password']))
 		{
+			$result['success'] = 0;
+			$result['error'] = 'Mot de passe incorrect !';
 			echo json_encode($result);
 			return false;
 		}
 		
-		$result['valid'] = 1;
 		$_SESSION['email'] = $email;
 		$_SESSION['password'] = $password;
 		$_SESSION['secret_key'] = $user['secret_key'];

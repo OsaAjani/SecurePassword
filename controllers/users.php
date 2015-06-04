@@ -80,6 +80,14 @@ class users extends Controller
 			return false;
 		}
 
+		if ($_POST['password'] != $_POST['verif_password'])
+		{
+			$result['success'] = 0;
+			$result['error'] = 'Les mots de passe ne correspondent pas !';
+			echo json_encode($result);
+			return false;
+		}
+
 		if (!internalTools::checkPasswordStrength($_POST['password'], 10, true, true, true, true, 2))
 		{
 			$result['success'] = 0;
