@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS groups
 	name VARCHAR(255) NOT NULL,
 	user_id INT NOT NULL,
 	PRIMARY KEY (id),
-	UNIQUE (name),
+	UNIQUE (name, user_id),
 	INDEX groups_user_id (user_id),
 	FOREIGN KEY (user_id)
 		REFERENCES users(id)
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS passwords
 	content VARCHAR(1000) NOT NULL,
 	group_id INT NOT NULL,
 	PRIMARY KEY (id),
-	UNIQUE (name),
+	UNIQUE (name,group_id),
 	INDEX passwords_group_id (group_id),
 	FOREIGN KEY (group_id)
 		REFERENCES groups(id)
